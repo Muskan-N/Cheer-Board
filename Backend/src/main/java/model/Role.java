@@ -15,7 +15,7 @@ public class Role {
 
     public String getId() {
         return id;
-    }
+    } // primary key
 
     public void setId(String id) {
         this.id = id;
