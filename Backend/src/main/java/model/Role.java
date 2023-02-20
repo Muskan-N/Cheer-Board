@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "role")
 public class Role {
-//hi
     @Id
     private String id;
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
