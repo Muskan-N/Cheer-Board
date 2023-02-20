@@ -15,11 +15,14 @@ public class LoginController {
     @Autowired
     private CustomUserDetailsService userService;
 
+    //global object of modelAndView
     ModelAndView modelAndView = new ModelAndView();
+    //login method for login of user
     public ModelAndView login() {
         modelAndView.setViewName("login");
         return modelAndView;
     }
+    //dashboard method for view of admin
     @RequestMapping(value = "/dashboard", method = RequestMethod.GET)
     public ModelAndView dashboard() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -30,6 +33,7 @@ public class LoginController {
         return modelAndView;
     }
 
+    //home page for user other than admin
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView home() {
         modelAndView.setViewName("home");

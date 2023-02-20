@@ -22,10 +22,12 @@ public class CustomUserDetailsService  {
     @Autowired
     private RoleRepo roleRepo;
 
+    //finding user by email
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
 
+    //creating user
     public void saveUser(User user) {
         Role userRole = roleRepo.findByRole(utility.UtilityString.ADMIN);
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
@@ -37,6 +39,7 @@ public class CustomUserDetailsService  {
     }
 
 
+    //reading user
     public String readUserByName(String email) throws UsernameNotFoundException {
         User user = userRepo.findByEmail(email);
         if (user != null) {

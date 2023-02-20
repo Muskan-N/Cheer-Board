@@ -15,11 +15,15 @@ public class User {
     //Primary key as employee ID should be unique
     private String id;
     @Indexed(unique = true)
+    //employee email
     private String email;
+    //employee password
     private String password;
+    //employee fullname
     private String fullname;
     private boolean enabled;
     @DBRef
+    //role of user
     private Set<Role> roles;
 
     //getter for ID
@@ -62,6 +66,7 @@ public class User {
         this.fullname = fullname;
     }
 
+    //method to check user is admin or not
     public boolean isEnabled() {
         return enabled;
     }
