@@ -5,23 +5,32 @@ import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import repo.RoleRepo;
 import repo.UserRepo;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import utility.ErrorUtility;
 import utility.UtilityString;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Service
 public class CustomUserDetailsService  {
 
+    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     @Autowired
     private UserRepo userRepo;
 
     @Autowired
     private RoleRepo roleRepo;
 
+    //mocking data in user table
+//     void createUser(){
+//        UserRepo.save(new UserRepo(1, 01, "muskan.singh@nagarro.com", "password", "muskan", true, " x");
+//
+//         LOGGER.log(Level.INFO, "user created");
+//    }
     //finding user by email
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
@@ -62,12 +71,11 @@ public class CustomUserDetailsService  {
             {
                 "success" :
                     [
-                        {"200":},
-                        {"201":},
-                        {"202":},
-                        {"203":},
-                        {"204":},
-                        {"205":}
+                        {"200":"The request has succeeded."},
+                        {"201":"The request has been created."},
+                        {"202":"The request has been accepted."},
+                        {"204":"resource deleted successfully."},
+                        {"205":"Reset content"}
                     ]
             },
             {
@@ -76,23 +84,22 @@ public class CustomUserDetailsService  {
                             {
                                 "client":
                                     [
-                                        {"400":},
-                                        {"401":},
-                                        {"402":},
-                                        {"403":},
-                                        {"404":},
-                                        {"405":}
+                                        {"401":"You are not authorized.kindly contact admin for details."},
+                                        {"403":"Refresh the page."},
+                                        {"404":"Request could not be found."},
+                                        {"405":"Kindly Refresh or switch to different network"}
+                                        {"402":"Too many requests,Kindly wait for a moment"}
                                     ]
             },
                             {
                                 "server":
                                     [
-                                        {"500":},
-                                        {"501":},
-                                        {"502":},
-                                        {"503":},
-                                        {"504":},
-                                        {"505":}
+                                        {"500":"Something unexpected happened on the web server"},
+                                        {"501":"Server does not support the functionality required to fulfil the request."},
+                                        {"502":"Restart your browser."},
+                                        {"503":"Repeated application crashes."},
+                                        {"504":"Time limit exceeded to load, Kindly switch to stable internet connection"},
+                                        {"505":"HTTP Version not Supported,Kindly Switch to different browser"}
                                     ]
                             }
             }

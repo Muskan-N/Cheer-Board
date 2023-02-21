@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "role")
 public class Role {
+    //squence id
     @Id
     //Primary key as employee ID should be unique
     private String id;

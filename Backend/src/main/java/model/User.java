@@ -11,9 +11,21 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "user")
 public class User {
 
+    public User(int id, int empId, String email, String password, String fullname, boolean enabled) {
+        this.id = id;
+        this.empId = empId;
+        this.email = email;
+        this.password = password;
+        this.fullname = fullname;
+        this.enabled = enabled;
+    }
+
+    //add Sequence id
+    @Indexed(unique = true)
+    private int id;
     @Id
     //Primary key as employee ID should be unique
-    private String id;
+    private int empId;
     @Indexed(unique = true)
     //employee email
     private String email;
@@ -26,14 +38,22 @@ public class User {
     //role of user
     private Set<Role> roles;
 
-    //getter for ID
-    public String getId() {
+    //getter for unique ID
+    public int getId() {
         return id;
     }
 
-    //setter for ID
-    public void setId(String id) {
+    //setter for unique ID
+    public void setId(int id) {
         this.id = id;
+    }
+    //getter for empId
+    public int getEmpId() {
+        return  empId;
+    }
+    //setter for empId
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     //getter for email
