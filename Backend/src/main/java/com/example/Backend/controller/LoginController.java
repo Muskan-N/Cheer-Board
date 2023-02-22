@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//two
 //details of user getMapping method(read)
 //use constructor for testing
 @RestController
@@ -51,5 +51,6 @@ public class LoginController {
         userList.add(user1);
         return userList;
     }
-
+//getUserDetails
+//
 }
