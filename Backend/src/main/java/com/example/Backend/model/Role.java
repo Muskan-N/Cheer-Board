@@ -1,4 +1,4 @@
-package model;
+package com.example.Backend.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;

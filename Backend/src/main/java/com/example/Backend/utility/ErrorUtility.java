@@ -1,4 +1,4 @@
-package utility;
+package com.example.Backend.utility;
 
 public class ErrorUtility {
     public static String USER_NOT_FOUND="User Not Found";
