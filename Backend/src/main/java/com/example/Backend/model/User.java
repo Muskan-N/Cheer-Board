@@ -11,13 +11,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class User {
     public User() {
     }
-    public User(int id, int empId, String email, String password, String fullname, boolean enabled) {
+    public User(int id, int empId, String email, String password, String fullname, boolean enabled,Set roles) {
         this.id = id;
         this.empId = empId;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
         this.enabled = enabled;
+        this.roles=roles;
     }
 
     //add Sequence id
