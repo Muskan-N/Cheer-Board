@@ -42,6 +42,3 @@ public class UserDetailsService {
         userRepo.save(user);
         return "User Created";
 }}
-//api should give error
-//interceptor
-//SOLID principles

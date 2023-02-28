@@ -1,16 +1,20 @@
 package com.example.Backend.controller;
 
+import com.example.Backend.ErrorHandler.ResourceNotFoundException;
 import com.example.Backend.model.User;
 import com.example.Backend.service.UserDetailsService;
 import com.example.Backend.utility.UtilityString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
 @RestController
-@CrossOrigin
+@Validated
 public class LoginController {
     @Autowired
     private UserDetailsService userService;
@@ -38,15 +42,21 @@ public class LoginController {
                ( null == local ? "User not found with this email : " + email : "login Successful"):
                 "you have not added the standard email format";
         }
-//give output on 201 status code
+//give output in 201 status code
     @PostMapping("/createUser")
     @ResponseBody
-        public String createUser(@RequestParam int id,@RequestParam int empId,@RequestParam String email,@RequestParam String password,@RequestParam String fullname){
-        return   userService.newUser(id,empId,email,password,fullname);
-      }
+        public ResponseEntity<Object>createUser(@RequestParam int id, @RequestParam int empId, @RequestParam String email, @RequestParam String password, @RequestParam String fullname) {
+        return  email.matches(UtilityString.EMAIL_REGEX)?
+                new ResponseEntity<>(userService.newUser(id, empId, email, password, fullname),HttpStatus.CREATED):
+                new ResponseEntity<>("you have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
+    }
+    }
 
 
 
 
-}
+
+
+
+
 
