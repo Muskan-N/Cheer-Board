@@ -1,6 +1,9 @@
 package com.example.Backend.service;
 
 import com.example.Backend.model.User;
+
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.verify;
 import com.example.Backend.repo.UserRepo;
 import org.junit.Test;
@@ -24,9 +27,17 @@ public class UserDetailsServiceTest {
     }
 
     @Test
-    void findUserByEmail()
+    void findUserByEmail1()
     {
-        userService.findUserByEmail("muskan@nagarro.com");
-        verify(userRepo).findByEmail("muskan@nagarro.com");
+        userService.findUserByEmail("muskan98@nagarro1.com");
+        verify(userRepo).findByEmail("muskan98@nagarro1.com");
+        System.out.println("test case hit");
+        assertThat("muskan98@nagarro1.com");
+    }
+    @Test
+    void findUserByEmail2()
+    {
+        userService.findUserByEmail("muskan58@nagarro.com");
+        verify(userRepo).findByEmail("muskan58@nagarro.com");
     }
 }
