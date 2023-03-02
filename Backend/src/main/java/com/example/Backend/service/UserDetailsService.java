@@ -24,6 +24,11 @@ public class UserDetailsService {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    public UserDetailsService(UserRepo userRepo)
+    {
+        // this keyword refers to current instance
+        this.userRepo = userRepo;
+    }
 
     //finding user by email
     public User findUserByEmail(String email) {
