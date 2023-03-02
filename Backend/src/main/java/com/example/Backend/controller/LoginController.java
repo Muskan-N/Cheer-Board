@@ -2,6 +2,7 @@ package com.example.Backend.controller;
 
 import com.example.Backend.ErrorHandler.ResourceNotFoundException;
 import com.example.Backend.model.User;
+import com.example.Backend.model.UserError;
 import com.example.Backend.service.UserDetailsService;
 import com.example.Backend.utility.UtilityString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,18 +42,26 @@ public class LoginController {
                ( null == local ? "User not found with this email : " + email : "login Successful"):
                 "you have not added the standard email format";
         }
+        //view details of user
+    @GetMapping("/showUserDetail")
+    public ResponseEntity<Object> UserDetail(String email) {
+        return  email.matches(UtilityString.EMAIL_REGEX)?
+                        new ResponseEntity<>(userService.getUserDetailbyEmail(email),HttpStatus.OK):
+                        new ResponseEntity<>("you have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
+    }
 //give output in 201 status code
     @PostMapping("/createUser")
     @ResponseBody
-        public ResponseEntity<Object>createUser(@RequestParam int id, @RequestParam int empId, @RequestParam String email, @RequestParam String password, @RequestParam String fullname) {
+        public ResponseEntity<Object>createUser(@RequestParam int id, @RequestParam int empId, @RequestParam String email, @RequestParam String password, @RequestParam String fullName) {
 
         User local = userService.findUserByEmail(email);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 (null==local)?
-                        new ResponseEntity<>(userService.newUser(id, empId, email, password, fullname),HttpStatus.CREATED):
+                        new ResponseEntity<>(userService.newUser(id, empId, email, password, fullName),HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("you have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
+
     }
 
 
