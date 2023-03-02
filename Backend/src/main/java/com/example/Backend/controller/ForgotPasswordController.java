@@ -1,37 +1,32 @@
 package com.example.Backend.controller;
 
 import com.example.Backend.service.CustomUserDetailsService;
+import com.example.Backend.service.ForgotPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-
-@Controller
+@RestController
 public class ForgotPasswordController {
+    @Autowired
+    private ForgotPasswordService forgotPasswordService;
 
+    @PostMapping("/forgot-password")
+    public String forgotPassword(@RequestParam String email) {
 
-    @GetMapping("/forgot_password")
-    public String showForgotPasswordForm() {
-        return null;
+        String response = forgotPasswordService.forgotPassword(email);
 
+        if (!response.startsWith("Invalid")) {
+            response = "http://localhost:8081/reset-password?token=" + response;
+        }
+        return response;
     }
 
-    @PostMapping("/forgot_password")
-    public String processForgotPassword() {
-        return null;
-    }
+    @PutMapping("/reset-password")
+    public String resetPassword(@RequestParam String token, @RequestParam String password) {
 
-
-    @GetMapping("/reset_password")
-    public String showResetPasswordForm() {
-        return null;
-
-    }
-
-    @PostMapping("/reset_password")
-    public String processResetPassword() {
-        return null;
-
+        return forgotPasswordService.resetPassword(token, password);
     }
 }

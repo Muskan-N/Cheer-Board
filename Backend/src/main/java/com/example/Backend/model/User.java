@@ -1,10 +1,12 @@
 package com.example.Backend.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection = "user")
@@ -19,6 +21,26 @@ public class User {
         this.fullname = fullname;
         this.enabled = enabled;
     }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getTokenCreationDate() {
+        return tokenCreationDate;
+    }
+
+    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
+        this.tokenCreationDate = tokenCreationDate;
+    }
+
+    private String token;
+    @Field("TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
 
     //add Sequence id
     @Indexed(unique = true)

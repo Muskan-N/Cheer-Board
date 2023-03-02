@@ -21,7 +21,6 @@ public class LoginController {
     return userService.getUserDetailbyEmail(email);
      }
 
-
     @GetMapping("/userLogin")
     public List<User> getAllUsers(){
         //Returns hardcoded data, a real world application would return from the database
