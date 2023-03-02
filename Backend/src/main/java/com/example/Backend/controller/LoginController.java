@@ -37,7 +37,6 @@ public class LoginController {
     @GetMapping("/userLogin")
     public String loginUser(String email) {
         User local = userService.findUserByEmail(email);
-        User user1 = new User();
        return  email.matches(UtilityString.EMAIL_REGEX)?
                ( null == local ? "User not found with this email : " + email : "login Successful"):
                 "you have not added the standard email format";
@@ -46,8 +45,12 @@ public class LoginController {
     @PostMapping("/createUser")
     @ResponseBody
         public ResponseEntity<Object>createUser(@RequestParam int id, @RequestParam int empId, @RequestParam String email, @RequestParam String password, @RequestParam String fullname) {
+
+        User local = userService.findUserByEmail(email);
         return  email.matches(UtilityString.EMAIL_REGEX)?
-                new ResponseEntity<>(userService.newUser(id, empId, email, password, fullname),HttpStatus.CREATED):
+                (null==local)?
+                        new ResponseEntity<>(userService.newUser(id, empId, email, password, fullname),HttpStatus.CREATED):
+                        new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("you have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
     }

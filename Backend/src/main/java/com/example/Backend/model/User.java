@@ -1,10 +1,14 @@
 package com.example.Backend.model;
 
+import java.time.LocalDateTime;
 import java.util.Set;
+
+import org.jnosql.artemis.Column;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection = "user")
@@ -34,7 +38,28 @@ public class User {
     private String password;
     //employee fullname
     private String fullname;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public LocalDateTime getTokenCreationDate() {
+        return tokenCreationDate;
+    }
+
+    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
+        this.tokenCreationDate = tokenCreationDate;
+    }
+
+    @Field("TIMESTAMP")
+    private LocalDateTime tokenCreationDate;
     private boolean enabled;
+
     @DBRef
     //role of user
     private Set<Role> roles;
