@@ -17,9 +17,11 @@ public class ForgotPasswordService {
 
     @Autowired
     private UserRepo userRepo;
+
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //checks weather the user is present or not, then generate the unique reset token
     public String forgotPassword(String email) {
 
         Optional<User> userOptional = Optional
@@ -38,6 +40,8 @@ public class ForgotPasswordService {
         return user.getToken();
     }
 
+    //checks whether the user is present or not, and then verifies the token
+    //sets an encrypted password and display the updated message
     public String resetPassword(String token, String password) {
 
         Optional<User> userOptional = Optional
@@ -65,6 +69,7 @@ public class ForgotPasswordService {
         return "Your password successfully updated.";
     }
 
+    //generates a random token
     private String generateToken() {
         StringBuilder token = new StringBuilder();
 
@@ -72,6 +77,7 @@ public class ForgotPasswordService {
                 .append(UUID.randomUUID().toString()).toString();
     }
 
+    //for token expiry after 30 mins
     private boolean isTokenExpired(final LocalDateTime tokenCreationDate) {
 
         LocalDateTime now = LocalDateTime.now();

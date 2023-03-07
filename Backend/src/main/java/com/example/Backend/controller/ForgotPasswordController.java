@@ -12,6 +12,8 @@ public class ForgotPasswordController {
     @Autowired
     private ForgotPasswordService forgotPasswordService;
 
+
+    //Returns link to reset password
     @PostMapping("/forgot-password")
     public String forgotPassword(@RequestParam String email) {
 
@@ -23,6 +25,7 @@ public class ForgotPasswordController {
         return response;
     }
 
+    //Returns the updated reset password
     @PutMapping("/reset-password")
     public String resetPassword(@RequestParam String token,
                                 @RequestParam String password) {
