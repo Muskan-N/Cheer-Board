@@ -25,11 +25,12 @@ public class UserDetailsService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    //finding user by email
+    //Returning user using email else throwing exception
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
-    //view user detail
+
+    //Returning list consisting of user details
     public List<User> getUserDetailbyEmail(String email) {
         User user = userRepo.findByEmail(email);
         List<User> userList = new ArrayList<User>();
@@ -43,12 +44,8 @@ public class UserDetailsService {
             throw new UsernameNotFoundException(ErrorUtility.USER_NOT_FOUND);
         }
     }
-    //creating user
-    public void saveUser(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setEnabled(true);
-        userRepo.save(user);
-    }
+
+    //Saving user with encrypted password
     public String newUser(int id,int empId,String email,String password,String fullname){
         User user = new User();
         user.setId(id);
