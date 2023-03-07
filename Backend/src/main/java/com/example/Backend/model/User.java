@@ -38,24 +38,31 @@ public class User {
     private String password;
     //employee fullname
     private String fullname;
+
+    //token for reset password
     private String token;
 
+    //getter for token
     public String getToken() {
         return token;
     }
 
+    //setter for token
     public void setToken(String token) {
         this.token = token;
     }
 
+    //getter for token creation time
     public LocalDateTime getTokenCreationDate() {
         return tokenCreationDate;
     }
 
+    //setter for token creation time
     public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
         this.tokenCreationDate = tokenCreationDate;
     }
 
+    //token creation time
     @Field("TIMESTAMP")
     private LocalDateTime tokenCreationDate;
     private boolean enabled;
