@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 @EnableMongoRepositories
 @Repository
 public interface UserRepo extends MongoRepository<User,String> {
+    //Returns user using email
     User findByEmail(String email);
+    //Returns user using unique token
     User findByToken(String token);
 
 }
