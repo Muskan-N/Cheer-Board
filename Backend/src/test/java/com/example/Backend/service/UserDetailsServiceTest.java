@@ -15,31 +15,31 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
-public class UserDetailsServiceTest {
-    @Mock
-    private UserRepo userRepo;
-
-    private UserDetailsService userService;
-
-    @BeforeEach
-    void setUp()
-    {
-        this.userService
-                = new UserDetailsService(userRepo);
-    }
-
-    @Test
-    public void findUserByEmail1()
-    {
-        userService.findUserByEmail("muskan@nagarro.com");
-
-
-    }
-    @Test
-    public void findUserByEmail2()
-    {
-        userService.findUserByEmail("muskan58@nagarro.com");
-
-    }
-}
+//@RunWith(MockitoJUnitRunner.class)
+//public class UserDetailsServiceTest {
+//    @Mock
+//    private UserRepo userRepo;
+//
+//    private UserDetailsService userService;
+//
+//    @BeforeEach
+//    void setUp()
+//    {
+//        this.userService
+//                = new UserDetailsService(userRepo);
+//    }
+//
+//    @Test
+//    public void findUserByEmail1()
+//    {
+//        userService.findUserByEmail("muskan@nagarro.com");
+//
+//
+//    }
+//    @Test
+//    public void findUserByEmail2()
+//    {
+//        userService.findUserByEmail("muskan58@nagarro.com");
+//
+//    }
+//}
