@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class User {
     public User() {
     }
-    public User(int id, int empId, String email, String password, String fullname, boolean enabled,Set roles) {
+    public User(int id, int empId, String email, String password, String fullname, boolean enabled) {
         this.id = id;
         this.empId = empId;
         this.email = email;
