@@ -22,7 +22,6 @@ public class User {
         this.password = password;
         this.fullname = fullname;
         this.enabled = enabled;
-        this.roles=roles;
     }
 
     //add Sequence id

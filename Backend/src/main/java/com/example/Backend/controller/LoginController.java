@@ -7,6 +7,7 @@ import com.example.Backend.service.UserDetailsService;
 import com.example.Backend.utility.UtilityString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,10 +20,9 @@ import java.util.List;
 public class LoginController {
     @Autowired
     private UserDetailsService userService;
-    ModelAndView mv = new ModelAndView();
 
     //Returns String message that whether user was able to login or not
-    @GetMapping("/userLogin")
+    @GetMapping(value = "/userLogin",produces= MediaType.APPLICATION_JSON_VALUE)
     public String loginUser(String email) {
         User local = userService.findUserByEmail(email);
        return  email.matches(UtilityString.EMAIL_REGEX)?

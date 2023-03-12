@@ -12,34 +12,35 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.junit4.SpringRunner;
 
-//@RunWith(MockitoJUnitRunner.class)
-//public class UserDetailsServiceTest {
-//    @Mock
-//    private UserRepo userRepo;
-//
-//    private UserDetailsService userService;
-//
-//    @BeforeEach
-//    void setUp()
-//    {
-//        this.userService
-//                = new UserDetailsService(userRepo);
-//    }
-//
-//    @Test
-//    public void findUserByEmail1()
-//    {
-//        userService.findUserByEmail("muskan@nagarro.com");
-//
-//
-//    }
-//    @Test
-//    public void findUserByEmail2()
-//    {
-//        userService.findUserByEmail("muskan58@nagarro.com");
-//
-//    }
-//}
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class UserDetailsServiceTest {
+    @Autowired
+    private UserDetailsService userDetailsService;
+    @MockBean
+    private UserRepo userRepo;
+
+    @Test
+    public void testFindByEmail(){
+
+        User user = new User();
+        user.setId(1);
+        user.setEmpId(101);
+        user.setEmail("muskan2@nagarro.com");
+        user.setPassword("muskan");
+        user.setFullname("Muskan");
+        user.setEnabled(true);
+
+        Mockito.when(userRepo.findByEmail("muskan2@nagarro.com")).thenReturn(user);
+
+        assertThat(userDetailsService.findUserByEmail("muskan2@nagarro.com")).isEqualTo(user);
+    }
+}

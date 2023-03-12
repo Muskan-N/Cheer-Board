@@ -29,6 +29,11 @@ public class UserDetailsService {
         // this keyword refers to current instance
         this.userRepo = userRepo;
     }
+    public List<User> getUser(){
+        List<User> users=userRepo.findAll();
+        System.out.println("getting data from db"+users );
+        return users;
+    }
 
     //Returning user using email else throwing exception
     public User findUserByEmail(String email) {
