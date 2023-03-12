@@ -29,6 +29,10 @@ public class UserDetailsService {
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
+    //Returning user using empId else throwing exception
+    public User findUserByEmpId(int empId) {
+        return userRepo.findByEmpId(empId);
+    }
 
     //Returning list consisting of user details
     public List<User> getUserDetailbyEmail(String email) {
@@ -46,15 +50,14 @@ public class UserDetailsService {
     }
 
     //Saving user with encrypted password
-    public String newUser(int id,int empId,String email,String password,String fullname){
+    public String newUser(int id,int empId,String email,String password,String fullname) {
         User user = new User();
-        user.setId(id);
-        user.setEmpId(empId);
-        user.setEmail(email);
-        user.setPassword(bCryptPasswordEncoder.encode(password));
-        user.setFullname(fullname);
-        user.setEnabled(true);
-        userRepo.save(user);
-        return "User Created";
-}
+            user.setId(id);
+            user.setEmpId(empId);
+            user.setEmail(email);
+            user.setPassword(bCryptPasswordEncoder.encode(password));
+            user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
+            userRepo.save(user);
+            return "User Created";
+    }
 }

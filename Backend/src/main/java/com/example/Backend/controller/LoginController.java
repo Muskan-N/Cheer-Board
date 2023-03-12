@@ -43,9 +43,10 @@ public class LoginController {
     @ResponseBody
         public ResponseEntity<Object>createUser(@RequestParam int id, @RequestParam int empId, @RequestParam String email, @RequestParam String password, @RequestParam String fullName) {
 
-        User local = userService.findUserByEmail(email);
+        User localEmail = userService.findUserByEmail(email);
+        User localEmpId=userService.findUserByEmpId(empId);
         return  email.matches(UtilityString.EMAIL_REGEX)?
-                (null==local)?
+                ((null==localEmail)&&(null==localEmpId))?
                         new ResponseEntity<>(userService.newUser(id, empId, email, password, fullName),HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("you have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);

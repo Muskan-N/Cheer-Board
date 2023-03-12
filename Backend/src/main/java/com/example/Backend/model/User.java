@@ -9,22 +9,17 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
-
-
 @Document(collection = "user")
 public class User {
     public User() {
     }
-    public User(int id, int empId, String email, String password, String fullname, boolean enabled,Set roles) {
+    public User(int id, int empId, String email, String password, String fullname) {
         this.id = id;
         this.empId = empId;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
-        this.enabled = enabled;
-        this.roles=roles;
     }
-
     //add Sequence id
     @Indexed(unique = true)
     private int id;
@@ -38,44 +33,16 @@ public class User {
     private String password;
     //employee fullname
     private String fullname;
-
     //token for reset password
     private String token;
-
-    //getter for token
-    public String getToken() {
-        return token;
-    }
-
-    //setter for token
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    //getter for token creation time
-    public LocalDateTime getTokenCreationDate() {
-        return tokenCreationDate;
-    }
-
-    //setter for token creation time
-    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
-        this.tokenCreationDate = tokenCreationDate;
-    }
-
     //token creation time
     @Field("TIMESTAMP")
     private LocalDateTime tokenCreationDate;
-    private boolean enabled;
-
-    @DBRef
-    //role of user
-    private Set<Role> roles;
 
     //getter for unique ID
     public int getId() {
         return id;
     }
-
     //setter for unique ID
     public void setId(int id) {
         this.id = id;
@@ -119,25 +86,36 @@ public class User {
         this.fullname = fullname;
     }
 
-    //method to check user is admin or not
-    public boolean isEnabled() {
-        return enabled;
+    //getter for token
+    public String getToken() {
+        return token;
+    }
+    //setter for token
+    public void setToken(String token) {
+        this.token = token;
+    }
+    //getter for token creation time
+    public LocalDateTime getTokenCreationDate() {
+        return tokenCreationDate;
+    }
+    //setter for token creation time
+    public void setTokenCreationDate(LocalDateTime tokenCreationDate) {
+        this.tokenCreationDate = tokenCreationDate;
     }
 
-    //setter for enabled
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
-    //getter for roles
-    public Set<Role> getRoles() {
-        return roles;
-    }
 
-    //setter for roles
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
