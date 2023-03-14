@@ -13,16 +13,14 @@ import org.springframework.data.mongodb.core.mapping.Field;
 public class User {
     public User() {
     }
-    public User(int id, int empId, String email, String password, String fullname) {
-        this.id = id;
+    public User(int empId, String email, String password, String fullname) {
         this.empId = empId;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
     }
     //add Sequence id
-    @Indexed(unique = true)
-    private int id;
+
     @Id
     //Primary key as employee ID should be unique
     private int empId;
@@ -39,14 +37,6 @@ public class User {
     @Field("TIMESTAMP")
     private LocalDateTime tokenCreationDate;
 
-    //getter for unique ID
-    public int getId() {
-        return id;
-    }
-    //setter for unique ID
-    public void setId(int id) {
-        this.id = id;
-    }
     //getter for empId
     public int getEmpId() {
         return  empId;

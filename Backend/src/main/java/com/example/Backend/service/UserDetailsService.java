@@ -50,11 +50,10 @@ public class UserDetailsService {
     }
 
     //Saving user with encrypted password
-    public String newUser(int id,int empId,String email,String password,String fullname) {
+    public String newUser(int empId,String email,String password,String fullname) {
         User user = new User();
-            user.setId(id);
             user.setEmpId(empId);
-            user.setEmail(email);
+            user.setEmail(email.toLowerCase());
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
             userRepo.save(user);
