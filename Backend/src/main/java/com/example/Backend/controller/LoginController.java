@@ -27,13 +27,14 @@ public class LoginController {
     //Returns String message that whether user was able to login or not
     @PostMapping("/userLogin")
     @ResponseBody
-    public String loginUser(@RequestBody UserloginRequest request) {
+    public ResponseEntity<Object> loginUser(@RequestBody UserloginRequest request) {
         String email=request.getEmail().toLowerCase();
          User local = userService.findUserByEmail(email);
                 System.out.println(request.getEmail());
           return  email.matches(UtilityString.EMAIL_REGEX)?
-                   ( null == local ? "User not found with this email : " + email : "login Successful"):
-                   "you have not added the standard email format";
+                   ( null == local ? new ResponseEntity<>("User not found with this email : " + email ,HttpStatus.UNAUTHORIZED):
+                           new ResponseEntity<>("Login Successful",HttpStatus.OK)):
+                  new ResponseEntity<>("you have not added the standard email format" ,HttpStatus.NOT_ACCEPTABLE);
         }
 
         //Returns User details  of user
