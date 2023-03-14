@@ -1,6 +1,7 @@
 package com.example.Backend.controller;
 
 import com.example.Backend.ErrorHandler.ResourceNotFoundException;
+import com.example.Backend.Requests.UserloginRequest;
 import com.example.Backend.model.User;
 import com.example.Backend.model.UserError;
 import com.example.Backend.service.UserDetailsService;
@@ -12,22 +13,27 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import java.util.ArrayList;
 import java.util.List;
 @RestController
 @Validated
+@CrossOrigin
 public class LoginController {
     @Autowired
     private UserDetailsService userService;
     ModelAndView mv = new ModelAndView();
 
     //Returns String message that whether user was able to login or not
-    @GetMapping("/userLogin")
-    public String loginUser(String email) {
-        User local = userService.findUserByEmail(email);
-       return  email.matches(UtilityString.EMAIL_REGEX)?
-               ( null == local ? "User not found with this email : " + email : "login Successful"):
-                "you have not added the standard email format";
+    @PostMapping("/userLogin")
+    @ResponseBody
+    public String loginUser(@RequestBody UserloginRequest request) {
+        String email=request.getEmail();
+         User local = userService.findUserByEmail(email);
+                System.out.println(request.getEmail());
+          return  email.matches(UtilityString.EMAIL_REGEX)?
+                   ( null == local ? "User not found with this email : " + email : "login Successful"):
+                   "you have not added the standard email format";
         }
 
         //Returns User details  of user
