@@ -14,22 +14,13 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    //API for user Login
     @PostMapping("/userLogin")
     @ResponseBody
     public ResponseEntity<Object> loginUser(@RequestBody UserloginRequest request) {
         return userService.loginUser(request);
     }
-
-
-//making email a parameter in service
-
-        //Returns User details  of user
-
-
-    //Creates the user and gives 201 status code
-
-
-    }
+}
 
 
 

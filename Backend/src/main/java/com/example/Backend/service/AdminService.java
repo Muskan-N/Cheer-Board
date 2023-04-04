@@ -7,6 +7,7 @@ import com.example.Backend.utility.UtilityString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,13 +21,17 @@ public class AdminService {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    //Method to find user using email
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
+
+    //Method to find user using empId
     private User findUserByEmpId(int empId) {
         return userRepo.findByEmpId(empId);
     }
-    //Saving user with encrypted password
+
+    //Saving new user Details encrypted password
     public String newUser(int empId,String email,String password,String fullname) {
         User user = new User();
             user.setEmpId(empId);
@@ -37,6 +42,7 @@ public class AdminService {
             return "User Created";
     }
 
+    //method for creating New user if do not exist already
     public ResponseEntity<Object> createUser(@RequestParam int empId, @RequestParam String email,
                                              @RequestParam String password, @RequestParam String fullName) {
         User localEmail = findUserByEmail(email);
@@ -59,9 +65,12 @@ public class AdminService {
             userList.add(user);
             return userList;
         }
-        return null;
+        else {
+            throw new UsernameNotFoundException(ErrorUtility.USER_NOT_FOUND);
+        }
     }
 
+    //method for viewing user detail if exists.
     public ResponseEntity<Object> UserDetail(String email) {
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 new ResponseEntity<>(getUserDetailbyEmail(email),HttpStatus.OK):
