@@ -15,11 +15,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-    public User(int empId, String email, String password, String fullname) {
+w    public User(int empId, String email, String password, String fullname,String role) {
         this.empId = empId;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
+        this.role=role;
     }
     //add Sequence id
 
@@ -34,7 +35,7 @@ public class User {
     //employee fullname
     private String fullname;
     //roles
-    private String roles;
+    private String role;
     //token for reset password
     private String token;
     //token creation time
