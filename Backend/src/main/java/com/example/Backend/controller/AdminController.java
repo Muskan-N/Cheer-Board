@@ -41,6 +41,12 @@ public class AdminController {
     public ResponseEntity<Object> updateUser(@RequestParam int empId,@RequestBody CreateUserRequest request){
         return adminService.updateUser(empId,request);
     }
+    //API for Admin to delete detail of user
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<Object> deleteUser(@RequestParam int empId)
+    {
+        return adminService.deleteByEmpId(empId);
+    }
 
 
 }

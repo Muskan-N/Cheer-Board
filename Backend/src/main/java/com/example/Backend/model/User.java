@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
-w    public User(int empId, String email, String password, String fullname,String role) {
+   public User(int empId, String email, String password, String fullname,String role) {
         this.empId = empId;
         this.email = email;
         this.password = password;

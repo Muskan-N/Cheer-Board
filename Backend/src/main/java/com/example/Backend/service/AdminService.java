@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 @Service
 public class AdminService {
@@ -100,6 +101,16 @@ public class AdminService {
             user.setRole(role);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("User does not exist",HttpStatus.NOT_FOUND);
+    }
+
+ //method for deleting user
+    public ResponseEntity<Object> deleteByEmpId(int empId) {
+        User user=userRepo.findByEmpId(empId);
+        if(null!=user){
+            userRepo.delete(user);
+            return new ResponseEntity<>("User deleted successfully",HttpStatus.OK);
         }
         return new ResponseEntity<>("User does not exist",HttpStatus.NOT_FOUND);
     }
