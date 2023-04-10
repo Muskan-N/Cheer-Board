@@ -23,7 +23,6 @@ public class UserService{
     }
     public ResponseEntity<Object> loginUser(UserloginRequest request){
         String email=request.getEmail().toLowerCase();
-        System.out.println(email);
         User local = findUserByEmail(email);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ( null == local ? new ResponseEntity<>("User not found with this email : "
