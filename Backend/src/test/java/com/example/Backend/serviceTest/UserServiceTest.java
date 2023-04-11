@@ -61,5 +61,6 @@ public class UserServiceTest {
         ResponseEntity userE = userService.loginUser(request);
         // then
         assertEquals(new ResponseEntity<>("Login Successful", HttpStatus.OK), userE);
+        //xxxx
     }
 }
