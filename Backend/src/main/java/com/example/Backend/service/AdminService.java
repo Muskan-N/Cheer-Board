@@ -29,7 +29,7 @@ public class AdminService {
     }
 
     //Method to find user using empId
-    private User findUserByEmpId(int empId) {
+    public User findUserByEmpId(int empId) {
         return userRepo.findByEmpId(empId);
     }
 
