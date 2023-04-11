@@ -5,6 +5,10 @@ public class UserloginRequest {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     String email;
 
 }

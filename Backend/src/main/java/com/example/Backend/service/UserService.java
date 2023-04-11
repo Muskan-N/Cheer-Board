@@ -23,7 +23,9 @@ public class UserService{
     }
     public ResponseEntity<Object> loginUser(UserloginRequest request){
         String email=request.getEmail().toLowerCase();
+        System.out.println("email from test : "+email);
         User local = findUserByEmail(email);
+        System.out.println("value from findeUserByEmail : "+local);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ( null == local ? new ResponseEntity<>("User not found with this email : "
                         + email , HttpStatus.UNAUTHORIZED): new ResponseEntity<>("Login Successful",HttpStatus.OK)):
