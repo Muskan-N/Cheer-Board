@@ -1,24 +1,28 @@
 package com.example.Backend.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.time.LocalDateTime;
+
 @Document(collection = "user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class User {
-   public User(int empId, String email, String password, String fullname,String role) {
+    public User(int empId, String email, String password, String fullname, String role) {
         this.empId = empId;
         this.email = email;
         this.password = password;
         this.fullname = fullname;
-        this.role=role;
+        this.role = role;
     }
     //add Sequence id
 
@@ -39,19 +43,6 @@ public class User {
     //token creation time
     @Field("TIMESTAMP")
     private LocalDateTime tokenCreationDate;
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

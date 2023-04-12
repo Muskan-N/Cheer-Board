@@ -5,13 +5,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @EnableMongoRepositories
 @Repository
-public interface UserRepo extends MongoRepository<User,String> {
+public interface UserRepo extends MongoRepository<User, String> {
     //Returns user using email
     User findByEmail(String email);
+
     User findByEmpId(int empId);
 
 }

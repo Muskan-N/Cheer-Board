@@ -10,8 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.logging.Logger;
+
 @Service
-public class UserService{
+public class UserService {
 
     private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
     @Autowired
@@ -21,15 +22,15 @@ public class UserService{
     public User findUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
-    public ResponseEntity<Object> loginUser(UserloginRequest request){
-        String email=request.getEmail().toLowerCase();
-        System.out.println("email from test : "+email);
+
+    public ResponseEntity<Object> loginUser(UserloginRequest request) {
+        String email = request.getEmail().toLowerCase();
         User local = findUserByEmail(email);
-        System.out.println("value from findUserByEmail : "+local);
-        return  email.matches(UtilityString.EMAIL_REGEX)?
-                ( null == local ? new ResponseEntity<>("User not found with this email : "
-                        + email , HttpStatus.UNAUTHORIZED): new ResponseEntity<>("Login Successful",HttpStatus.OK)):
-                new ResponseEntity<>("You have not added the standard email format" ,HttpStatus.NOT_ACCEPTABLE);
+        System.out.println("value from findUserByEmail : " + local);
+        return email.matches(UtilityString.EMAIL_REGEX) ?
+                (null == local ? new ResponseEntity<>("User not found with this email : "
+                        + email, HttpStatus.UNAUTHORIZED) : new ResponseEntity<>("Login Successful", HttpStatus.OK)) :
+                new ResponseEntity<>("You have not added the standard email format", HttpStatus.NOT_ACCEPTABLE);
     }
 
 

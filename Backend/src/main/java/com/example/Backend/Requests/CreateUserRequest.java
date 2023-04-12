@@ -2,7 +2,7 @@ package com.example.Backend.Requests;
 
 public class CreateUserRequest {
     int empId;
-    String email, password, fullName,role;
+    String email, password, fullName, role;
 
     public int getEmpId() {
         return empId;

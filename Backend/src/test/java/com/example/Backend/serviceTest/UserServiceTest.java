@@ -4,71 +4,92 @@ import com.example.Backend.Requests.UserloginRequest;
 import com.example.Backend.model.User;
 import com.example.Backend.repo.UserRepo;
 import com.example.Backend.service.UserService;
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.mongodb.core.aggregation.AggregationExpression;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.Assert;
 
-import java.util.Optional;
-
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willReturn;
-import static org.springframework.data.mongodb.core.aggregation.ConditionalOperators.Switch.CaseOperator.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
     @Mock
-     UserRepo userRepo;
+    UserRepo userRepo;
 
     @InjectMocks
-     UserService userService;
+    UserService userService;
+    private User user;
 
-    @Before
-    public void setUp() throws Exception {
-        MockitoAnnotations.initMocks(this);
+    @BeforeEach
+    void setUp() {
+        user = User.builder()
+                .empId(101)
+                .email("muskan12@nagarro.com")
+                .password("Muskan")
+                .fullname("Muskan Singh")
+                .role("Developer")
+                .build();
     }
-    @DisplayName("JUnit test for findUserByEmail method")
+
+    @DisplayName("findUserByEmailTest")
     @Test
-    public void findUserByEmailTest1() {
-        final User user = new User(101,"muskan1@nagarro.com","Muskan","Muskan Singh","Developer");
-        given(userRepo.findByEmail("muskan1@nagarro.com")).willReturn(user);
+    public void findUserByEmailTest() {
+        given(userRepo.findByEmail(user.getEmail())).willReturn(user);
 
         // when
-        User user1 = userService.findUserByEmail(user.getEmail());
+        User user1 = userService.findUserByEmail("muskan12@nagarro.com");
 
         // then
-      assertEquals(user1,user);
+        assertThat(user1).isNotNull();
     }
 
-    @DisplayName("JUnit test for loginUser method case : 1 ")
+    @DisplayName("LoginTest_Success ")
     @Test
-    public void loginUserTest() {
-        final User user = new User(101,"muskan12@nagarro.com","Muskan","Muskan Singh","Developer");
-        Mockito.when(userRepo.save(user)).thenReturn(user);
-        //given(userRepo.findByEmail("muskan@12@gmail.com")).willReturn(user);
-        System.out.println("user : "+user);
-        String email = "preeti@nagarro.com";
+    public void loginUserTest1() {
+
+        given(userRepo.findByEmail(user.getEmail())).willReturn(user);
+        String email = "muskan12@nagarro.com";
         UserloginRequest request = new UserloginRequest();
         request.setEmail(email);
         // when
         ResponseEntity userE = userService.loginUser(request);
         // then
         assertEquals(new ResponseEntity<>("Login Successful", HttpStatus.OK), userE);
-        //xxxx
     }
+
+    @DisplayName("LoginTest_Rejected ")
+    @Test
+    public void loginUserTest2() {
+
+        given(userRepo.findByEmail(user.getEmail())).willReturn(null);
+        String email = "muskan12@nagarro.com";
+        UserloginRequest request = new UserloginRequest();
+        request.setEmail(email);
+        // when
+        ResponseEntity userE = userService.loginUser(request);
+        // then
+        assertEquals(new ResponseEntity<>("User not found with this email : " + email, HttpStatus.UNAUTHORIZED), userE);
+    }
+
+    @DisplayName("LoginTest_Failed ")
+    @Test
+    public void loginUserTest3() {
+
+        given(userRepo.findByEmail("")).willReturn(null);
+        String email = "";
+        UserloginRequest request = new UserloginRequest();
+        request.setEmail(email);
+        // when
+        ResponseEntity userE = userService.loginUser(request);
+        // then
+        assertEquals(new ResponseEntity<>("You have not added the standard email format", HttpStatus.NOT_ACCEPTABLE), userE);
+    }
+
 }

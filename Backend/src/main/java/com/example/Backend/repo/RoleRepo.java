@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @EnableMongoRepositories
 @Repository
-public interface RoleRepo extends MongoRepository<Role,String> {
+public interface RoleRepo extends MongoRepository<Role, String> {
     //Returns user using role
     Role findByRole(String role);
 }
