@@ -35,7 +35,7 @@ public class User {
 
     //aggregation from many to one.
     @DBRef
-    private Role roleName;
+    private Role role;
     //token for reset password
 
     private String token;

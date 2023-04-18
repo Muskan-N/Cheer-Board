@@ -40,7 +40,7 @@ public class AdminServiceUser {
             user.setEmail(email.toLowerCase());
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
-            user.setRoleName(role);
+            user.setRole(role);
             userRepo.save(user);
             return "User Created";
     }
@@ -100,7 +100,7 @@ public class AdminServiceUser {
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
-            user.setRoleName(role);
+            user.setRole(role);
             System.out.println(role);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
