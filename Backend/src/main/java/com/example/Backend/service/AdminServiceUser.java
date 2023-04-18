@@ -1,6 +1,7 @@
 package com.example.Backend.service;
 
 import com.example.Backend.Requests.CreateUserRequest;
+import com.example.Backend.model.Role;
 import com.example.Backend.model.User;
 import com.example.Backend.repo.UserRepo;
 import com.example.Backend.utility.ErrorUtility;
@@ -11,13 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 @Service
-public class AdminService {
+public class AdminServiceUser {
     @Autowired
     UserRepo userRepo;
     @Autowired
@@ -34,13 +34,13 @@ public class AdminService {
     }
 
     //Saving new user Details encrypted password
-    public String newUser(int empId,String email,String password,String fullname,String role) {
+    public String newUser(int empId, String email, String password, String fullname, Role role) {
         User user = new User();
             user.setEmpId(empId);
             user.setEmail(email.toLowerCase());
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
-            user.setRole(role);
+            user.setRoleName(role);
             userRepo.save(user);
             return "User Created";
     }
@@ -51,12 +51,13 @@ public class AdminService {
         String email=request.getEmail().toLowerCase();
         String password =request.getPassword();
         String fullName=request.getFullName();
-        String role=request.getRole();
+        Role roleName=request.getRoleName();
+        System.out.println(roleName);
         User localEmail = findUserByEmail(email);
         User localEmpId=findUserByEmpId(empId);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ((null==localEmail)&&(null==localEmpId))?
-                        new ResponseEntity<>(newUser(empId, email, password, fullName,role), HttpStatus.CREATED):
+                        new ResponseEntity<>(newUser(empId, email, password, fullName,roleName), HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("You have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
@@ -92,13 +93,15 @@ public class AdminService {
     public ResponseEntity<Object> updateUser(int empId,CreateUserRequest request) {
         String password =request.getPassword();
         String fullName=request.getFullName();
-        String role=request.getRole();
+        Role role=request.getRoleName();
+
         System.out.println(empId);
         if (null!=userRepo.findByEmpId(empId)){
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
-            user.setRole(role);
+            user.setRoleName(role);
+            System.out.println(role);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
         }

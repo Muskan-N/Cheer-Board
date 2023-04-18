@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepo extends MongoRepository<Role, String> {
     //Returns user using role
-    Role findByRole(String role);
+    Role findByRoleName(String roleName);
+
+    Role findByRoleId(int roleId);
 }

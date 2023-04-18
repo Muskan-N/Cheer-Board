@@ -1,8 +1,11 @@
 package com.example.Backend.Requests;
 
+import com.example.Backend.model.Role;
+
 public class CreateUserRequest {
     int empId;
-    String email, password, fullName, role;
+    String email, password, fullName;
+    Role roleName;
 
     public int getEmpId() {
         return empId;
@@ -20,8 +23,8 @@ public class CreateUserRequest {
         return fullName;
     }
 
-    public String getRole() {
-        return role;
+    public Role getRoleName() {
+        return roleName;
     }
 
     public void setEmpId(int empId) {
@@ -40,7 +43,8 @@ public class CreateUserRequest {
         this.fullName = fullName;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleName(Role roleName) {
+        this.roleName = roleName;
     }
+
 }

@@ -2,7 +2,7 @@ package com.example.Backend.controller;
 
 import com.example.Backend.Requests.CreateUserRequest;
 import com.example.Backend.model.User;
-import com.example.Backend.service.AdminService;
+import com.example.Backend.service.AdminServiceUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,7 +15,7 @@ import java.util.List;
 @Validated
 public class AdminController {
     @Autowired
-    AdminService adminService;
+    AdminServiceUser adminService;
 
     //API for Admin to create User
     @PostMapping("/createUser")

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,13 +18,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class User {
-    public User(int empId, String email, String password, String fullname, String role) {
-        this.empId = empId;
-        this.email = email;
-        this.password = password;
-        this.fullname = fullname;
-        this.role = role;
-    }
     //add Sequence id
 
     @Id
@@ -37,8 +31,13 @@ public class User {
     //employee fullname
     private String fullname;
     //roles
-    private String role;
+    //private String role;
+
+    //aggregation from many to one.
+    @DBRef
+    private Role roleName;
     //token for reset password
+
     private String token;
     //token creation time
     @Field("TIMESTAMP")
