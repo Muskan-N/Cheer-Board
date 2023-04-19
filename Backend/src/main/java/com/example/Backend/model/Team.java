@@ -2,6 +2,7 @@ package com.example.Backend.model;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "team")
@@ -13,7 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Team {
     @Id
     //Primary key as sequence ID should be unique
-    private int id;
-    //Role of employee
+    private int teamId;
+    //Team of employee
+    @Indexed(unique = true)
     private String teamName;
 }

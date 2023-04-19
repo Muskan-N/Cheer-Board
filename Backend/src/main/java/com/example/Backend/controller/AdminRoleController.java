@@ -20,7 +20,7 @@ public class AdminRoleController {
 
     @PostMapping("/createRole")
     @ResponseBody
-    public ResponseEntity<Object> createUser(@RequestBody CreateRoleRequest request) {
+    public ResponseEntity<Object> createRole(@RequestBody CreateRoleRequest request) {
         return adminHomeServiceRole.createRole(request);
     }
 
@@ -41,7 +41,7 @@ public class AdminRoleController {
     }
 
     @DeleteMapping("/deleteRole")
-    public ResponseEntity<Object> deleteUser(@RequestParam int roleId) {
+    public ResponseEntity<Object> deleteRole(@RequestParam int roleId) {
         return adminHomeServiceRole.deleteByRoleId(roleId);
     }
 

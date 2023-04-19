@@ -36,8 +36,9 @@ public class User {
     //aggregation from many to one.
     @DBRef
     private Role role;
+    @DBRef
+    private Team team;
     //token for reset password
-
     private String token;
     //token creation time
     @Field("TIMESTAMP")

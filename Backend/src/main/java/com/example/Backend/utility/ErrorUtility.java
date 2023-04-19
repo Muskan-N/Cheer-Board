@@ -1,6 +1,7 @@
 package com.example.Backend.utility;
 
 public class ErrorUtility {
+    public static final String TEAM_NOT_FOUND ="Team not Found";
     public static String USER_NOT_FOUND="User Not Found";
     public static String ROLE_NOT_FOUND="Role Not Found";
     public static String UNAUTHORISED_USER="user not authorized";
