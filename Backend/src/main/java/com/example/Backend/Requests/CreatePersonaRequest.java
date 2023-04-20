@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class CreateRoleRequest {
-    int roleId;
-    String roleName;
+public class CreatePersonaRequest {
+    int personaId;
+    String personaName;
 }

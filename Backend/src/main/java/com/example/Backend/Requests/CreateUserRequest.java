@@ -1,6 +1,6 @@
 package com.example.Backend.Requests;
 
-import com.example.Backend.model.Role;
+import com.example.Backend.model.Persona;
 import com.example.Backend.model.Team;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CreateUserRequest {
     int empId;
     String email, password, fullName;
-    Role roleName;
+    Persona personaName;
     Team teamName;
 }
 

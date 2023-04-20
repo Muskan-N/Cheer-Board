@@ -1,7 +1,7 @@
 package com.example.Backend.service;
 
 import com.example.Backend.Requests.CreateUserRequest;
-import com.example.Backend.model.Role;
+import com.example.Backend.model.Persona;
 import com.example.Backend.model.Team;
 import com.example.Backend.model.User;
 import com.example.Backend.repo.UserRepo;
@@ -35,15 +35,14 @@ public class AdminServiceUser {
     }
 
     //Saving new user Details encrypted password
-    public String newUser(int empId, String email, String password, String fullname, Role role,Team team) {
+    public String newUser(int empId, String email, String password, String fullname, Persona persona, Team team) {
         User user = new User();
             user.setEmpId(empId);
             user.setEmail(email.toLowerCase());
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
-            user.setRole(role);
+            user.setPersona(persona);
             user.setTeam(team);
-            System.out.println(team);
             userRepo.save(user);
             return "User Created";
     }
@@ -54,15 +53,13 @@ public class AdminServiceUser {
         String email=request.getEmail().toLowerCase();
         String password =request.getPassword();
         String fullName=request.getFullName();
-        Role roleName=request.getRoleName();
+        Persona personaName =request.getPersonaName();
         Team team=request.getTeamName();
-        System.out.println(team);
-        System.out.println(roleName);
         User localEmail = findUserByEmail(email);
         User localEmpId=findUserByEmpId(empId);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ((null==localEmail)&&(null==localEmpId))?
-                        new ResponseEntity<>(newUser(empId, email, password, fullName,roleName,team), HttpStatus.CREATED):
+                        new ResponseEntity<>(newUser(empId, email, password, fullName, personaName,team), HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("You have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
@@ -98,17 +95,15 @@ public class AdminServiceUser {
     public ResponseEntity<Object> updateUser(int empId,CreateUserRequest request) {
         String password =request.getPassword();
         String fullName=request.getFullName();
-        Role role=request.getRoleName();
+        Persona persona =request.getPersonaName();
         Team team=request.getTeamName();
 
-        System.out.println(empId);
         if (null!=userRepo.findByEmpId(empId)){
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
-            user.setRole(role);
+            user.setPersona(persona);
             user.setTeam(team);
-            System.out.println(role);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
         }

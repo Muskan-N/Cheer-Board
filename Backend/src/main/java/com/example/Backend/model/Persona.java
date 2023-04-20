@@ -5,20 +5,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "role")
+@Document(collection = "persona")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Builder
-public class Role {
+public class Persona {
 
     @Id
     //Primary key as sequence ID should be unique
-    private int roleId;
-    //Role of employee
+    private int personaId;
+    //Persona of employee
     @Indexed(unique = true)
-    private String roleName;
+    private String personaName;
 
 
 

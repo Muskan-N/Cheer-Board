@@ -1,15 +1,15 @@
 package com.example.Backend.repo;
 
-import com.example.Backend.model.Role;
+import com.example.Backend.model.Persona;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.stereotype.Repository;
 
 @EnableMongoRepositories
 @Repository
-public interface RoleRepo extends MongoRepository<Role, String> {
-    //Returns user using role
-    Role findByRoleName(String roleName);
+public interface PersonaRepo extends MongoRepository<Persona, String> {
+    //Returns user using persona
+    Persona findByPersonaName(String personaName);
 
-    Role findByRoleId(int roleId);
+    Persona findByPersonaId(int personaId);
 }
