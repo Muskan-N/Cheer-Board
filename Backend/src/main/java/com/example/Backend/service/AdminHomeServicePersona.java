@@ -28,11 +28,11 @@ public class AdminHomeServicePersona {
 
     public ResponseEntity<Object> createPersona(CreatePersonaRequest request) {
         int personaId = request.getPersonaId();
-        String personaName = request.getPersonaName().toLowerCase();
-        Persona localPersona = personaRepo.findByPersonaName(personaName);
+        String persona = request.getPersonaName().toLowerCase();
+        Persona localPersona = personaRepo.findByPersonaName(persona);
         Persona localPersonaId = personaRepo.findByPersonaId(personaId);
         return (null == localPersona && null == localPersonaId) ?
-                new ResponseEntity<>(newPersona(personaId, personaName), HttpStatus.CREATED) :
+                new ResponseEntity<>(newPersona(personaId, persona), HttpStatus.CREATED) :
                 new ResponseEntity<>("Persona already present", HttpStatus.CONFLICT);
     }
 

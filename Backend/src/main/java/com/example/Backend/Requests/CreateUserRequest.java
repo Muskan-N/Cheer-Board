@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class CreateUserRequest {
     int empId;
     String email, password, fullName;
-    Persona personaName;
-    Team teamName;
+    int personaId;
+    int teamId;
 }
 

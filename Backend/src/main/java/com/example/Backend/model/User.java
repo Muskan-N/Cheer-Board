@@ -35,6 +35,7 @@ public class User {
 
     //aggregation from many to one.
     @DBRef
+    @Field("personaId")
     private Persona persona;
     @DBRef
     private Team team;

@@ -5,14 +5,17 @@ import com.example.Backend.model.Persona;
 import com.example.Backend.model.Team;
 import com.example.Backend.model.User;
 import com.example.Backend.repo.UserRepo;
+import com.example.Backend.Requests.CreateUserRequest;
 import com.example.Backend.utility.ErrorUtility;
 import com.example.Backend.utility.UtilityString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,13 +56,16 @@ public class AdminServiceUser {
         String email=request.getEmail().toLowerCase();
         String password =request.getPassword();
         String fullName=request.getFullName();
-        Persona personaName =request.getPersonaName();
-        Team team=request.getTeamName();
+        Persona persona =new Persona();
+        //need to figure it out
+        persona.setPersonaId(request.getPersonaId());
+        Team team =new Team();
+        team.setTeamId(request.getTeamId());
         User localEmail = findUserByEmail(email);
         User localEmpId=findUserByEmpId(empId);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ((null==localEmail)&&(null==localEmpId))?
-                        new ResponseEntity<>(newUser(empId, email, password, fullName, personaName,team), HttpStatus.CREATED):
+                        new ResponseEntity<>(newUser(empId, email, password, fullName, persona,team), HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("You have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
@@ -95,14 +101,16 @@ public class AdminServiceUser {
     public ResponseEntity<Object> updateUser(int empId,CreateUserRequest request) {
         String password =request.getPassword();
         String fullName=request.getFullName();
-        Persona persona =request.getPersonaName();
-        Team team=request.getTeamName();
-
+        Persona persona =new Persona();
+        //need to figure it out
+        persona.setPersonaId(request.getPersonaId());
+        Team team =new Team();
+        team.setTeamId(request.getTeamId());
         if (null!=userRepo.findByEmpId(empId)){
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
-            user.setPersona(persona);
+          //  user.setPersona(persona);
             user.setTeam(team);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
