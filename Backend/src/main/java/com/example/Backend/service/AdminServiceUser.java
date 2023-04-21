@@ -110,7 +110,7 @@ public class AdminServiceUser {
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
-          //  user.setPersona(persona);
+            user.setPersona(persona);
             user.setTeam(team);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
