@@ -2,12 +2,15 @@ package com.example.Backend.controller;
 
 
 import com.example.Backend.Requests.CreateCertificationRequest;
+import com.example.Backend.model.Certification;
 import com.example.Backend.repo.CertificationRepo;
 import com.example.Backend.service.AdminHomeServiceCertification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin
@@ -18,7 +21,11 @@ public class AdminCertificationController {
     AdminHomeServiceCertification adminHomeServiceCertification;
     @PostMapping("/createCertification")
     @ResponseBody
-    public ResponseEntity<Object> createPersona(@RequestBody CreateCertificationRequest request) {
+    public ResponseEntity<Object> createCertification(@RequestBody CreateCertificationRequest request) {
         return adminHomeServiceCertification.createCertification(request);
+    }
+    @GetMapping("/showAllCertificationDetail")
+    public List<Certification> allCertificationDetail() {
+        return adminHomeServiceCertification.allCertificationDetail();
     }
 }

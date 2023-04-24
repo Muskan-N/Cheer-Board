@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AdminHomeServiceCertification {
     @Autowired
@@ -35,5 +37,9 @@ public class AdminHomeServiceCertification {
         return (null == localCertification && null == localCertificationId) ?
                 new ResponseEntity<>(newCertification(certificationId,certificationType,certificationName,certificationCategory,certificationRecommendedForPersona), HttpStatus.CREATED) :
                 new ResponseEntity<>("Certification already present", HttpStatus.CONFLICT);
+    }
+
+    public List<Certification> allCertificationDetail() {
+        return certificationRepo.findAll();
     }
 }
