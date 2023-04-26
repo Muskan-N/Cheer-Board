@@ -18,7 +18,7 @@ import java.util.List;
 public class AdminHomeServiceCertification {
     @Autowired
     CertificationRepo certificationRepo;
-    public String newCertification(int certificationId,String certificationType,String certificationName,String certificationCategory,String certificationRecommendedForPersona) {
+    public String newCertification(int certificationId,String certificationType,String certificationName,String certificationCategory,List<String> certificationRecommendedForPersona) {
         Certification certification = new Certification();
         certification.setCertificationId(certificationId);
         certification.setCertificationType(certificationType);
@@ -33,7 +33,7 @@ public class AdminHomeServiceCertification {
         String certificationType = request.getCertificationType().toLowerCase();
         String certificationName = request.getCertificationName().toLowerCase();
         String certificationCategory = request.getCertificationCategory().toLowerCase();
-        String certificationRecommendedForPersona=request.getCertificationRecommendedForPersona().toLowerCase();
+        List<String> certificationRecommendedForPersona=request.getCertificationRecommendedForPersona();
         Certification localCertification = certificationRepo.findByCertificationName(certificationName);
         Certification localCertificationId = certificationRepo.findByCertificationId(certificationId);
         return (null == localCertification && null == localCertificationId) ?
@@ -47,7 +47,7 @@ public class AdminHomeServiceCertification {
     public ResponseEntity<Object> updateCertification(int certificationId, CreateCertificationRequest request) {
         String certificationName = request.getCertificationName().toLowerCase();
         String certificationCategory = request.getCertificationCategory().toLowerCase();
-        String certificationRecommendedForPersona=request.getCertificationRecommendedForPersona().toLowerCase();
+        List<String> certificationRecommendedForPersona=request.getCertificationRecommendedForPersona();
         if (null != certificationRepo.findByCertificationId(certificationId)) {
             Certification certification = certificationRepo.findByCertificationId(certificationId);
             certification.setCertificationName(certificationName);

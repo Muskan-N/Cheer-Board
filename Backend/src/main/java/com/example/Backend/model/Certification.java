@@ -5,6 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Document(collection = "certification")
 @Data
 @AllArgsConstructor
@@ -21,7 +23,7 @@ public class Certification {
     private String certificationName;
 
     private String certificationCategory;
-    private String certificationRecommendedForPersona;
+    private List<String> certificationRecommendedForPersona;
 
 
 }
