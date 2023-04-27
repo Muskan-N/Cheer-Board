@@ -1,6 +1,7 @@
 package com.example.Backend.service;
 
 import com.example.Backend.Requests.CreateUserRequest;
+import com.example.Backend.model.Certification;
 import com.example.Backend.model.Persona;
 import com.example.Backend.model.Team;
 import com.example.Backend.model.User;
@@ -38,7 +39,7 @@ public class AdminServiceUser {
     }
 
     //Saving new user Details encrypted password
-    public String newUser(int empId, String email, String password, String fullname, Persona persona, Team team) {
+    public String newUser(int empId, String email, String password, String fullname, Persona persona, Team team, Certification certification) {
         User user = new User();
             user.setEmpId(empId);
             user.setEmail(email.toLowerCase());
@@ -46,6 +47,7 @@ public class AdminServiceUser {
             user.setFullname(fullname.toLowerCase());//convert it to camelCase by default
             user.setPersona(persona);
             user.setTeam(team);
+            user.setCertification(certification);
             userRepo.save(user);
             return "User Created";
     }
@@ -61,11 +63,13 @@ public class AdminServiceUser {
         persona.setPersonaId(request.getPersonaId());
         Team team =new Team();
         team.setTeamId(request.getTeamId());
+        Certification certification=new Certification();
+        certification.setCertificationId(request.getCertificationId());
         User localEmail = findUserByEmail(email);
         User localEmpId=findUserByEmpId(empId);
         return  email.matches(UtilityString.EMAIL_REGEX)?
                 ((null==localEmail)&&(null==localEmpId))?
-                        new ResponseEntity<>(newUser(empId, email, password, fullName, persona,team), HttpStatus.CREATED):
+                        new ResponseEntity<>(newUser(empId, email, password, fullName, persona,team,certification), HttpStatus.CREATED):
                         new ResponseEntity<>("User already present",HttpStatus.CONFLICT):
                 new ResponseEntity<>("You have not added the standard email format",HttpStatus.NOT_ACCEPTABLE);
     }
@@ -106,12 +110,15 @@ public class AdminServiceUser {
         persona.setPersonaId(request.getPersonaId());
         Team team =new Team();
         team.setTeamId(request.getTeamId());
+        Certification certification=new Certification();
+        certification.setCertificationId(request.getCertificationId());
         if (null!=userRepo.findByEmpId(empId)){
             User user = userRepo.findByEmpId(empId);
             user.setPassword(bCryptPasswordEncoder.encode(password));
             user.setFullname(fullName.toLowerCase());//convert it to camelCase by default
             user.setPersona(persona);
             user.setTeam(team);
+            user.setCertification(certification);
             userRepo.save(user);
             return new ResponseEntity<>("User Updated Successfully",HttpStatus.OK);
         }

@@ -40,10 +40,8 @@ public class User {
     @DBRef
     private Team team;
     //token for reset password
-    private String token;
-    //token creation time
-    @Field("TIMESTAMP")
-    private LocalDateTime tokenCreationDate;
+   @DBRef
+    private Certification certification;
 
 
 }

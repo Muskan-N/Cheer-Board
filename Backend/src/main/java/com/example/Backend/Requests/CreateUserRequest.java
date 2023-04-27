@@ -16,5 +16,6 @@ public class CreateUserRequest {
     String email, password, fullName;
     int personaId;
     int teamId;
+    int certificationId;
 }
 
