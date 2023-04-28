@@ -2,6 +2,8 @@ package com.example.Backend.service;
 
 import com.example.Backend.Requests.CreateCertificationRequest;
 import com.example.Backend.model.Certification;
+import com.example.Backend.model.CertificationCategory;
+import com.example.Backend.model.Team;
 import com.example.Backend.repo.CertificationRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +17,7 @@ public class AdminHomeServiceCertification {
     @Autowired
     CertificationRepo certificationRepo;
 
-    public String newCertification(int certificationId, String certificationType, String certificationName, String certificationCategory, List<String> certificationRecommendedForPersona) {
+    public String newCertification(int certificationId, String certificationType, String certificationName, CertificationCategory certificationCategory, List<String> certificationRecommendedForPersona) {
         Certification certification = new Certification();
         certification.setCertificationId(certificationId);
         certification.setCertificationType(certificationType);
@@ -30,7 +32,8 @@ public class AdminHomeServiceCertification {
         int certificationId = request.getCertificationId();
         String certificationType = request.getCertificationType().toLowerCase();
         String certificationName = request.getCertificationName().toLowerCase();
-        String certificationCategory = request.getCertificationCategory().toLowerCase();
+        CertificationCategory certificationCategory =new CertificationCategory();
+        certificationCategory.setCategoryId(request.getCertificationCategoryId());
         List<String> certificationRecommendedForPersona = request.getCertificationRecommendedForPersona();
         Certification localCertification = certificationRepo.findByCertificationName(certificationName);
         Certification localCertificationId = certificationRepo.findByCertificationId(certificationId);
@@ -46,7 +49,8 @@ public class AdminHomeServiceCertification {
 
     public ResponseEntity<Object> updateCertification(int certificationId, CreateCertificationRequest request) {
         String certificationName = request.getCertificationName().toLowerCase();
-        String certificationCategory = request.getCertificationCategory().toLowerCase();
+        CertificationCategory certificationCategory =new CertificationCategory();
+        certificationCategory.setCategoryId(request.getCertificationCategoryId());
         List<String> certificationRecommendedForPersona = request.getCertificationRecommendedForPersona();
         if (null != certificationRepo.findByCertificationId(certificationId)) {
             Certification certification = certificationRepo.findByCertificationId(certificationId);

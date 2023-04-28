@@ -3,6 +3,7 @@ package com.example.Backend.model;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
@@ -22,7 +23,8 @@ public class Certification {
     @Indexed(unique = true)
     private String certificationName;
 
-    private String certificationCategory;
+    @DBRef
+    private CertificationCategory certificationCategory;
     private List<String> certificationRecommendedForPersona;
 
 

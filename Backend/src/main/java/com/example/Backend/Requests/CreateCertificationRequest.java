@@ -17,6 +17,6 @@ public class CreateCertificationRequest {
     String certificationType;
 
      String certificationName;
-     String certificationCategory;
+     int certificationCategoryId;
      List<String> certificationRecommendedForPersona;
 }
