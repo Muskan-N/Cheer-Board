@@ -25,7 +25,9 @@ public class Certification {
 
     @DBRef
     private CertificationCategory certificationCategory;
-    private List<String> certificationRecommendedForPersona;
-
+    @DBRef
+    private List<Persona> certificationRecommendedForPersona;
+//1.way to handle list input--> customize backend as per array sent in input((typecast)
+// 2. convert string(json) to array.
 
 }

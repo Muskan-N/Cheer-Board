@@ -22,6 +22,7 @@ public class AdminTeamController {
     public ResponseEntity<Object> createTeam(@RequestBody CreateTeamRequest request) {
         return adminHomeServiceTeam.createTeam(request);
     }
+
     @GetMapping("/showTeamDetail")
     public ResponseEntity<Object> teamDetail(String teamName) {
         return adminHomeServiceTeam.teamDetail(teamName);
@@ -31,6 +32,7 @@ public class AdminTeamController {
     public List<Team> allTeamDetail() {
         return adminHomeServiceTeam.allTeamDetail();
     }
+
     @PutMapping("/updateTeam")
     @ResponseBody
     public ResponseEntity<Object> updateTeam(@RequestParam int teamId, @RequestBody CreateTeamRequest request) {

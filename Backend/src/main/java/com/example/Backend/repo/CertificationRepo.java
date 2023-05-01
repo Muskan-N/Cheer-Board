@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 
 @EnableMongoRepositories
 @Repository
-public interface CertificationRepo extends MongoRepository<Certification,String> {
+public interface CertificationRepo extends MongoRepository<Certification, String> {
     Certification findByCertificationId(int certificationId);
+
     Certification findByCertificationName(String certificationName);
 
 }

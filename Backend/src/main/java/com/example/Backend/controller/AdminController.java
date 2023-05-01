@@ -28,23 +28,25 @@ public class AdminController {
     //API for Admin to view details of User
     @GetMapping("/showUserDetail")
     public ResponseEntity<Object> UserDetail(String email) {
-       return adminService.UserDetail(email);
+        return adminService.UserDetail(email);
     }
+
     //API for Admin to view all User
     @GetMapping("/showAllUserDetail")
     public List<User> AllUserDetail() {
         return adminService.AllUserDetail();
     }
+
     //API for Admin to update details of user
     @PutMapping("/updateUser")
     @ResponseBody
-    public ResponseEntity<Object> updateUser(@RequestParam int empId,@RequestBody CreateUserRequest request){
-        return adminService.updateUser(empId,request);
+    public ResponseEntity<Object> updateUser(@RequestParam int empId, @RequestBody CreateUserRequest request) {
+        return adminService.updateUser(empId, request);
     }
+
     //API for Admin to delete detail of user
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<Object> deleteUser(@RequestParam int empId)
-    {
+    public ResponseEntity<Object> deleteUser(@RequestParam int empId) {
         return adminService.deleteByEmpId(empId);
     }
 

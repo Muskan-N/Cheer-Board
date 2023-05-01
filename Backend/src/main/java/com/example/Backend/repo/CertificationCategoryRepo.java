@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface CertificationCategoryRepo extends MongoRepository<CertificationCategory, String> {
 
     CertificationCategory findByCategoryId(int categoryId);
+
     CertificationCategory findByCategoryName(String categoryName);
 }

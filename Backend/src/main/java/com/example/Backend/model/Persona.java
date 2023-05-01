@@ -20,6 +20,4 @@ public class Persona {
     @Indexed(unique = true)
     private String personaName;
 
-
-
 }

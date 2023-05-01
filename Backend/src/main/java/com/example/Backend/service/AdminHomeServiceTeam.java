@@ -1,9 +1,6 @@
 package com.example.Backend.service;
 
 import com.example.Backend.Requests.CreateTeamRequest;
-import com.example.Backend.Requests.CreateTeamRequest;
-import com.example.Backend.model.Team;
-import com.example.Backend.model.Team;
 import com.example.Backend.model.Team;
 import com.example.Backend.repo.TeamRepo;
 import com.example.Backend.utility.ErrorUtility;
@@ -20,6 +17,7 @@ import java.util.List;
 public class AdminHomeServiceTeam {
     @Autowired
     TeamRepo teamRepo;
+
     public String newTeam(int teamId, String teamName) {
         Team team = new Team();
         team.setTeamId(teamId);
@@ -27,6 +25,7 @@ public class AdminHomeServiceTeam {
         teamRepo.save(team);
         return "Team Created";
     }
+
     public ResponseEntity<Object> createTeam(CreateTeamRequest request) {
         int teamId = request.getTeamId();
         String teamName = request.getTeamName().toLowerCase();
@@ -36,6 +35,7 @@ public class AdminHomeServiceTeam {
                 new ResponseEntity<>(newTeam(teamId, teamName), HttpStatus.CREATED) :
                 new ResponseEntity<>("Team already present", HttpStatus.CONFLICT);
     }
+
     public List<Team> getTeamDetailbyTeamName(String teamName) {
         Team team = teamRepo.findByTeamName(teamName);
         List<Team> teamList = new ArrayList<Team>();
@@ -48,6 +48,7 @@ public class AdminHomeServiceTeam {
             throw new UsernameNotFoundException(ErrorUtility.TEAM_NOT_FOUND);
         }
     }
+
     public ResponseEntity<Object> teamDetail(String teamName) {
         return new ResponseEntity<>(getTeamDetailbyTeamName(teamName), HttpStatus.OK);
     }
@@ -55,6 +56,7 @@ public class AdminHomeServiceTeam {
     public List<Team> allTeamDetail() {
         return teamRepo.findAll();
     }
+
     public ResponseEntity<Object> updateTeam(int teamId, CreateTeamRequest request) {
         String teamName = request.getTeamName();
         if (null != teamRepo.findByTeamId(teamId)) {

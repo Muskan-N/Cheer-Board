@@ -10,5 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface TeamRepo extends MongoRepository<Team, String> {
     //Returns user using Team
     Team findByTeamName(String teamName);
+
     Team findByTeamId(int teamId);
 }

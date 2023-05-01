@@ -16,7 +16,7 @@ public class CreateCertificationRequest {
     //certification type internal/external
     String certificationType;
 
-     String certificationName;
-     int certificationCategoryId;
-     List<String> certificationRecommendedForPersona;
+    String certificationName;
+    int certificationCategoryId;
+    List<Integer> certificationRecommendedForPersonaIds;
 }
